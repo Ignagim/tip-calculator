@@ -5,6 +5,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap');
 
 body {
-  @apply bg-[hsl(185,41%,84%)] font-spacemono
+  @apply bg-[hsl(185,41%,84%)] font-spacemono overflow-x-hidden scroll-smooth box-border
+}
+
+#root {
+  @apply overflow-x-hidden
 }
 

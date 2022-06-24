@@ -28,8 +28,13 @@ function App() {
     setCustom(`${event.target.value}`);
   };
   return (
-    <div className="flex w-screen h-screen items-end md:items-center justify-center">
-      <div className="grid grid-rows-2 grid-cols-1 md:grid-rows-1 md:grid-cols-2 gap-2 items-center w-full h-[90%] md:w-[55%] md:h-[55%] bg-white rounded-2xl p-4 pb-0 md:pr-4">
+    <div className="flex flex-col w-screen items-center justify-between gap-8 mt-8 md:items-center">
+      <h1 className="tracking-[0.6em] text-2xl text-[hsl(183,100%,15%)] p-8 md:p-4 lg:p-0">
+        SPLI
+        <br />
+        TTER
+      </h1>
+      <div className="grid grid-rows-2 grid-cols-1 md:grid-rows-1 md:grid-cols-2 gap-2 items-center w-full h-[80%] lg:w-[55%] md:h-[55%] bg-white rounded-2xl p-4 pb-0 md:pr-4">
         <LeftSide
           value={value}
           people={people}

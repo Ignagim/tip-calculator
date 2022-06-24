@@ -1,7 +1,17 @@
 import React from "react";
 
 function RightSide({ value, people, custom, percent, handleReset }) {
-  const tipPerPerson = (value, people) => {
+  const total = () => {
+    if (custom > 0 && people && value && !percent) {
+      return totalPerPerson(value, people) + tipAmount(value, custom) / people;
+    } else if (value && people) {
+      return totalPerPerson(value, people) + tipAmount(value, percent) / people;
+    } else {
+      return "0.00";
+    }
+  };
+
+  const totalPerPerson = (value, people) => {
     const tip = value / people;
     if (Math.floor(tip) === tip) {
       return tip;
@@ -19,37 +29,21 @@ function RightSide({ value, people, custom, percent, handleReset }) {
     }
   };
 
-  const totalPerPeson = (value, people, percent) => {
-    if (
-      Math.floor(
-        tipPerPerson(value, people) + tipAmount(value, percent) / people
-      ) ===
-      tipPerPerson(value, people) + tipAmount(value, percent) / people
-    ) {
-      return tipPerPerson(value, people) + tipAmount(value, percent) / people;
-    } else {
-      return (
-        tipPerPerson(value, people) +
-        tipAmount(value, percent) / people
-      ).toFixed(2);
-    }
-  };
-
   return (
     <div className="bg-[hsl(183,100%,15%)] h-[90%] w-full flex flex-col justify-between rounded-lg ">
       <div className="flex flex-col items-start justify-between w-full h-[40%] ml-10 mt-10">
         <div className="flex items-center justify-between w-full pr-20">
           <div className="w-full">
             <h3 className="text-white">Tip Amount</h3>
-            <p className="text-gray-400 text-sm">/ person</p>
+            <p className="text-gray-400 text-sm">/ total</p>
           </div>
           <h1 className="text-4xl text-[hsl(172,67%,45%)]">
             $
-            {custom && value
+            {custom > 0 && value
               ? tipAmount(value, custom)
-              : percent && value && !custom
+              : percent && value && custom < 1
               ? tipAmount(value, percent)
-              : value && !custom && !percent
+              : value && custom < 1 && !percent
               ? value
               : "0.00"}
           </h1>
@@ -59,14 +53,7 @@ function RightSide({ value, people, custom, percent, handleReset }) {
             <h3 className="text-white">Total</h3>
             <p className="text-gray-400 text-sm">/ person</p>
           </div>
-          <h1 className="text-4xl text-[hsl(172,67%,45%)]">
-            $
-            {custom && people && value
-              ? tipPerPerson(value, people) + tipAmount(value, custom) + people
-              : value && percent && people
-              ? tipPerPerson(value, people) + tipAmount(value, percent) / people
-              : "0.00"}
-          </h1>
+          <h1 className="text-4xl text-[hsl(172,67%,45%)]">${total()}</h1>
         </div>
       </div>
       <button
